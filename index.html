@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Taken from https://www.youtube.com/watch?v=bAwEj_mSzOs -->
+    <title>Anime JS Stagger Effect</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/style.css" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <style>
+      body {
+        background-color: rgb(20, 20, 20);
+        height: 100vh;
+        overflow: hidden;
+        margin: 0px;
+      }
+
+      #tiles {
+        height: 100vh;
+        width: 100vw;
+
+        display: grid;
+        grid-template-columns: repeat(var(--columns), 1fr);
+        grid-template-rows: repeat(var(--rows), 1fr);
+      }
+
+      .tile {
+        display: inline-block;
+        height: 50px;
+        width: 50px;
+        outline: 1px solid white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="tiles"></div>
+  </body>
+
+  <script>
+    let columns = Math.floor(document.body.clientWidth / 50);
+    let rows = Math.floor(document.body.clientHeight / 50);
+
+    const wrapper = document.getElementById("tiles");
+
+    const colors = [
+      "rgb(229, 57, 53)",
+      "rgb(253, 216, 53)",
+      "rgb(224, 81, 30)",
+      "rgb(76, 175, 80)",
+      "rgb(33, 150, 243)",
+      "rgb(156, 39, 176)",
+    ];
+
+    let count = -1;
+
+    const handleOnClick = (index) => {
+      count = count + 1;
+
+      anime({
+        targets: ".tile",
+        backgroundColor: colors[count % (colors.length - 1)],
+        delay: anime.stagger(50, {
+          grid: [columns, rows],
+          from: index,
+        }),
+      });
+    };
+
+    const createTile = (index) => {
+      const tile = document.createElement("div");
+
+      tile.classList.add("tile");
+
+      tile.onclick = (e) => handleOnClick(index);
+
+      return tile;
+    };
+
+    const createTiles = (quantity) => {
+      Array.from(Array(quantity)).map((tile, index) => {
+        wrapper.appendChild(createTile(index));
+      });
+    };
+
+    const createGrid = () => {
+      wrapper.innerHTML = "";
+
+      columns = Math.floor(document.body.clientWidth / 50);
+      rows = Math.floor(document.body.clientHeight / 50);
+
+      wrapper.style.setProperty("--columns", columns);
+      wrapper.style.setProperty("--rows", rows);
+
+      createTiles(columns * rows);
+    };
+
+    createGrid();
+
+    window.onresize = () => createGrid();
+  </script>
+</html>
