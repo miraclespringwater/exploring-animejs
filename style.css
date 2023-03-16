@@ -1,0 +1,146 @@
+:root {
+  --dark: #252423;
+  --darker: #1a1a19;
+
+  --red-primary: #FF4B4B;
+}
+
+*, 
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  /* This defines what 1rem is */
+  font-size: 62.5%; /* 1 rem = 10px; 10px/16px = 62.5% */
+}
+
+body {
+  box-sizing: border-box;
+  
+  padding: 5rem 2.5rem;
+
+  min-height: 100vh;
+  width: 100vw;
+
+  background-color: var(--darker);
+
+  font-size: 1.2rem;
+  font-family: monospace;
+  color: var(--red-primary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper {
+  width: 40rem;
+  /* max-width: 75%; */
+  background-color: var(--red-primary);
+}
+
+.demo {
+  position: relative;
+
+  z-index: 1;
+
+  min-height: 20rem;
+  width: 40rem;
+
+  background-color: var(--dark);
+
+  border-bottom: 1px solid var(--darker);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.demo::before {
+  z-index: 0;
+
+  display: block;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+
+  background-color: currentColor;
+
+  content: "";
+}
+
+.active::before {
+  opacity: .05;
+}
+
+.demo h2 {
+  /* flex: 1 1; */
+  height: 33.33%;
+
+  padding: 2rem 0rem 1rem 2rem;
+
+  font-size: inherit;
+  font-weight: 100;
+  text-transform: uppercase;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+}
+
+
+.demo-content {
+  /* flex: 4 1; */
+  flex: 1;
+  height: calc(100% - 33.33%);
+  align-self: center;
+
+  padding-bottom: 3rem;
+
+  width: 29rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.line {
+  width: 100%;
+
+  padding: .1rem 0;
+}
+
+.square {
+  pointer-events: none;
+  position: relative;
+  width: 2.8rem;
+  height: 2.8rem;
+  margin: 0.1rem;
+  background-color: currentColor;
+}
+
+.small {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.shadow {
+  position: absolute;
+  opacity: .2;
+}
+
+pre {
+  font-size: 1.46rem;
+  display: inline-block;
+  white-space: pre-line;
+}
